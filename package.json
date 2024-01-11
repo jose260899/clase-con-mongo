@@ -1,0 +1,27 @@
+{
+  "name": "clase",
+  "version": "1.0.0",
+  "description": "Clases de Node",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/tsc -w",
+    "start": "./node_modules/.bin/nodemon ./dist/app.js"
+  },
+  "keywords": [
+    "Node",
+    "MongoDB",
+    "appWeb",
+    "DWES"
+  ],
+  "author": "Ico",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.8",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "nodemon": "^3.0.2",
+    "save-dev": "^0.0.1-security"
+  }
+}
