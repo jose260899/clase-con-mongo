@@ -16,6 +16,8 @@ app.set('view engine', 'ejs');
 app.set('views',rutas.views); //CAMBIAR
 //Controladores para responder a las peticiones por HTTP
 
+app.use(express.static(rutas.public)); // Middleware para recoger elementos estáticos contenidos en una carpeta.
+
 app.use('/admin', adminRouter);
 app.use('/', shopRouter );
 

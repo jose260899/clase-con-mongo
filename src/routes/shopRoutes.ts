@@ -5,7 +5,7 @@ export const shopRouter = Router();
 
 
 shopRouter.get('/', (req,res,next)=>{
-    res.render('prueba',{nombre: 'Ico'});
+    res.render('shop',{title: 'Ico', prods: [{title: 'Libro Molón'},{title: 'Moto'}]});
 });
 
 shopRouter.get('/saludo', (req,res,next)=>{
