@@ -1,68 +1,42 @@
-console.log('---------------------------------------------------------------');
+import express from "express";
 
-let a: Number | string = 5;
+import { rutas } from "./utils/rutas.js";
 
-enum Talla {XS, S, M, L, XL};
+console.log('------------------------------------------------------------_---');
+console.log("Bienvenido a mi app");
 
-interface personas {
-    name: string,
-    age: number,
-    hobbies: string[],
-    role: [Number, string],
-    medida: Talla
-}
-const person: personas = {
-    name: 'Ico',
-    age: 88,
-    hobbies: ['musica', 'deporte'],
-    role: [2, 'autor'],
-    medida: Talla.L
-}
+const port =  3000;
 
+const app = express();
 
-let person2: personas ={
-    name: 'Juan',
-    age: 88,
-    hobbies: ['musica', 'deporte'],
-    role: [2, 'autor'],
-    medida: Talla.L
-}
+app.set('view engine', 'ejs');
+app.set('views',rutas.views); //CAMBIAR
+//Controladores para responder a las peticiones por HTTP
 
-const hobbies = ['cocinar', 'bici', 'dibujar','deporte', 'pintura'];
-let hobbies2: string[] = [];
-hobbies2.push(...hobbies);
+app.get('/saludo', (req,res,next)=>{
+    res.render('prueba',{nombre: 'Ico'});
+})
 
-person2 = person;
-person2 = {...person};
+app.get('/automovil',(req,res,next)=>{
+    console.log("Pasamos por el primer middleware app.get");
+    res.redirect("/coche");
+})
 
-const  {name, age} = {...person};
-console.log(name);
+app.use('/coche',(req, res, next) => {
+    console.log("Ha llegado una petición");
+    next();
+});
 
+app.use('/', (req,res,next)=> {
+    console.log("Middleware del final");
+    res.status(404).send({'error':'mal hecho'});
+})
 
+app.use('/coche', (req,res,next) => {
+    console.log("Estamos en el segundo middleware");
+    res.send({"message":"ok"});
+});
 
-
-let var1: unknown;
-let var2: any;
-let var3: string;
-
-var1 = "casa";
-var2 = "calle";
-
-
-
- 
-const [h1,h2,h3, ...resto]=[...hobbies];
-console.log(h1, h2, h3);
-console.log(resto)
-
-const suma = (...numbers: number[]) =>
-{
-    return numbers.reduce( (currentRes, currentVal) =>
-    {
-        return currentRes + currentVal
-    }
-    )
-}
-
-console.log(suma(12,12,33,34));
-
+// FIN 
+app.listen(port);
+console.log("Servidor de la app en marcha");
