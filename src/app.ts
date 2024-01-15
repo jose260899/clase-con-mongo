@@ -12,18 +12,17 @@ const port =  3000;
 const app = express();
 
 app.use(urlencoded({extended: false})); //Middleware para procesar los campos que me envíen por HTTP body-parser
+app.use(express.static(rutas.public)); //Mia rutas contenido estáticos .css .js
+app.disable('x-powered-by');
 app.set('view engine', 'ejs');
 app.set('views',rutas.views); //CAMBIAR
+
+app.use('/admin', adminRouter); //Las rutas empiezan por /admin
+app.use('/', shopRouter);
 //Controladores para responder a las peticiones por HTTP
 
-app.get('/saludo', (req,res,next)=>{
-    res.render('prueba',{nombre: 'Ico'});
-})
 
-app.get('/automovil',(req,res,next)=>{
-    console.log("Pasamos por el primer middleware app.get");
-    res.redirect("/coche");
-})
+
 
 app.use('/coche',(req, res, next) => {
     console.log("Ha llegado una petición");
