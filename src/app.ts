@@ -16,10 +16,14 @@ app.set('view engine', 'ejs');
 app.set('views',rutas.views); //CAMBIAR
 //Controladores para responder a las peticiones por HTTP
 
-app.use(express.static(rutas.public)); // Middleware para recoger elementos estáticos contenidos en una carpeta.
+app.get('/saludo', (req,res,next)=>{
+    res.render('prueba',{nombre: 'Ico'});
+})
 
-app.use('/admin', adminRouter);
-app.use('/', shopRouter );
+app.get('/automovil',(req,res,next)=>{
+    console.log("Pasamos por el primer middleware app.get");
+    res.redirect("/coche");
+})
 
 app.use('/coche',(req, res, next) => {
     console.log("Ha llegado una petición");
