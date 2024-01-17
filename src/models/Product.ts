@@ -1,8 +1,21 @@
 
 
-export const productos: {
-    title: string,
-    imageUrl: string,
-    description: string,
-    price: number
-}[] = [];
+const products: Product[] = [];
+
+export class Product {
+    constructor(
+        public title: string,
+        public imageUrl: string,
+        public description: string,
+        public price: number
+    ){
+
+    }
+    save(){
+        products.push(this);
+    };
+
+    static fetchAll(){
+        return products;
+    };
+}
