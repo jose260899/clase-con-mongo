@@ -21,4 +21,7 @@ export class Product {
     static fetchAll(){
         return products;
     };
+    static findById(productId: number){
+        return products.find( p => p.id === productId );
+    }
 }
