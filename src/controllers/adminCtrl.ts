@@ -29,4 +29,27 @@ export const postAddProduct = (req: Request, res: Response, next: NextFunction) 
     }
     console.log('pasa')
     res.redirect('/products');  
+};
+export const getEditProduct = (req: Request,res: Response,next: NextFunction)=>{
+    console.log("Devolvemos el formulario para editar productos");
+    const editMode = req.query.edit === 'true';
+    if(!editMode){
+        return res.redirect('/products');
+    }
+    const productId = +req.params.productId;
+    const product = Product.findById(productId);
+    if(product){
+        res.render('admin/edit-product',
+        {
+            pageTitle: "Formulario", 
+            path: "/admin/add-product", 
+            editing: editMode,
+            product: product
+        });
+    }else{
+        res.redirect('/products');
+    }
+
+    
 }
+
