@@ -15,6 +15,11 @@ export class Product {
         if(!this.id){
             this.id = Math.round(Math.random()*1000000);
             products.push(this);
+        }else{
+            const index = products.findIndex( p => p.id === this.id );
+            if(this.id>=0){
+                products[index]=this; //{...this};
+            }
         }
     };
 
@@ -24,4 +29,5 @@ export class Product {
     static findById(productId: number){
         return products.find( p => p.id === productId );
     }
+    //static deleteById(productId: number){}
 }

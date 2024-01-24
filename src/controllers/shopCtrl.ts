@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 import { Product } from "../models/Product.js";
+import { Cart } from "../models/Cart.js";
 
 
 export const getIndex = (req: Request,res: Response,next: NextFunction) => {  
@@ -17,9 +18,15 @@ export const getProductById = (req: Request,res: Response,next: NextFunction) =>
     if(product){
         res.render('shop/product-detail', {pageTitle:product.title, path:'', product: product});
     }else{
-        res.status(404).render('404.ejs');    
+        res.status(404).render('404.ejs',{pageTitle: 'Producto No Encontrado',path:''});    
     }
 };
+export const postCart = (req: Request,res: Response,next: NextFunction)=>{
+    const productId = +req.body.productId;
+    console.log('postCart: Añadimos al carro el producto: ',productId);
+    Cart.addProduct(productId,1);
+    res.redirect('/cart');
+}
 
 export const getSaludo = (req: Request,res: Response,next: NextFunction)=>{
     res.render('prueba',{nombre: 'Ico'});
