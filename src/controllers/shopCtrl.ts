@@ -39,7 +39,7 @@ export const getCart =  (req: Request,res: Response,next: NextFunction)=>{
         path: '/cart',
         items: items,
     })
-}
+};
 
 export const postCart = (req: Request,res: Response,next: NextFunction)=>{
     const productId = +req.body.productId;
@@ -47,7 +47,23 @@ export const postCart = (req: Request,res: Response,next: NextFunction)=>{
     Cart.addProduct(productId,1);
     res.redirect('/cart');
 }
+export const deleteCartItem =  (req: Request,res: Response,next: NextFunction)=>{
+    const productId = +req.body.productId;
+    Cart.deleteProduct(productId);
+    res.redirect('/cart');
+};
+export const postCartIncreaseItem = (req: Request,res: Response,next: NextFunction)=>{
+    const productId = +req.body.productId;
+    Cart.addProduct(productId,1);
+    res.redirect('/cart');
+};
+
+export const postCartDecreaseItem = (req: Request,res: Response,next: NextFunction)=>{
+    const productId = +req.body.productId;
+    Cart.decreaseProduct(productId);
+    res.redirect('/cart');
+};
 
 export const getSaludo = (req: Request,res: Response,next: NextFunction)=>{
     res.render('prueba',{nombre: 'Ico'});
-}
+};

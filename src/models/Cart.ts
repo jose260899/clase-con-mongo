@@ -26,4 +26,23 @@ export class Cart {
     static getCart(){
         return cartItems;
     }
+
+    static deleteProduct(id: number) {
+        const index = cartItems.findIndex( ci => ci.id === id );
+        if(index >= 0){
+            cartItems.splice(index,1);
+        }
+    }
+    static decreaseProduct(id: number){
+        const index =  cartItems.findIndex( ci => ci.id === id );
+        if(index>=0){
+            //Si el producto ya está, aumentar qty
+            const qty = cartItems[index].qty;
+            if(qty === 1){
+                this.deleteProduct(id);
+            }else{
+                cartItems[index] = new CartItem(id, qty-1);
+            }
+        }
+    }
 }
