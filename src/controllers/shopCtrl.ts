@@ -21,6 +21,23 @@ export const getProductById = (req: Request,res: Response,next: NextFunction) =>
         res.status(404).render('404.ejs',{pageTitle: 'Producto No Encontrado',path:''});    
     }
 };
+
+export const getCart = (req: Request,res: Response,next: NextFunction)=>{
+    const ci = Cart.getCart();
+    const items = ci.map (ci => {
+        const product = Product.findById(ci.id);
+        if (product){
+            return{
+                id: ci.id,
+                title: product.title,
+                price: product.price,
+                qty: ci.qty
+            }
+        }
+    });
+    res.render('shop/cart', {pageTitle: 'Carro de la compra', path: '/cart', items: items})
+}
+
 export const postCart = (req: Request,res: Response,next: NextFunction)=>{
     const productId = +req.body.productId;
     console.log('postCart: Añadimos al carro el producto: ',productId);
