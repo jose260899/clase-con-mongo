@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getIndex, getProducts, getProductById, getSaludo, postCart,  getCart  } from "../controllers/shopCtrl.js";
+import { getIndex, getProducts, getProductById, getSaludo, postCart, getCart } from "../controllers/shopCtrl.js";
 
 
 
