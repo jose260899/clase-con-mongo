@@ -22,5 +22,8 @@ export class Cart {
         }        
         console.log(cartItems);
     }
-
+    
+    static getCart(){
+        return cartItems;
+    }
 }
