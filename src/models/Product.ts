@@ -1,8 +1,12 @@
+import { ObjectId } from "mongodb";
+import { collections } from "../services/databaseService.js";
 
 
 const products: Product[] = [];
 
 export class Product {
+    public _id?: ObjectId;
+
     constructor(
         public title: string,
         public imageUrl: string,
@@ -11,23 +15,35 @@ export class Product {
         public id?: number
     ){
     }
-    save(){
-        if(!this.id){
-            this.id = Math.round(Math.random()*1000000);
-            products.push(this);
-        }else{
-            const index = products.findIndex( p => p.id === this.id );
-            if(this.id>=0){
-                products[index]=this; //{...this};
-            }
+    async save(){
+        if(this._id){
+            const result = await collections.products?.updateOne({_id: this._id},{$set: this});
+            result
+                ? console.log(`Successfully updated product with id ${this._id}`)
+                : console.log("Failed to create a new product.");
+            return;
         }
+        const result = await collections.products?.insertOne(this);
+        result
+                ? console.log(`Successfully created a new product with id ${result.insertedId}`)
+                : console.log("Failed to create a new product.");
+        // if(!this.id){
+        //     this.id = Math.round(Math.random()*1000000);
+        //     products.push(this);
+        // }else{
+        //     const index = products.findIndex( p => p.id === this.id );
+        //     if(this.id>=0){
+        //         products[index]=this; //{...this};
+        //     }
+        // }
     };
 
-    static fetchAll(){
-        return products;
+    static async fetchAll(){
+        return await collections.products?.find().toArray();
     };
-    static findById(productId: number){
-        return products.find( p => p.id === productId );
+    static async findById(productId: number){
+        return products;
+        //return await collections.products?.findOne({_id: new ObjectId(productId)});
     }
     //static deleteById(productId: number){}
 }
