@@ -25,7 +25,7 @@ export class User {
         const result1 = await collections.users?.findOne({DNI: this.DNI});
         if(result1){
             this._id = result1._id;
-            return this;
+            return //this;
         }
 
         const result = await collections.users?.insertOne(this);
@@ -33,7 +33,7 @@ export class User {
         result
                 ? console.log(`Successfully created a new user with id ${result.insertedId}`)
                 : console.log("Failed to create a new user.");           
-        return this;
+        return //this;
     }
     static async fetchById(id: string){
         return await collections.users?.findOne({_id: new ObjectId(id)});

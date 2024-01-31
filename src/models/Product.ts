@@ -2,7 +2,7 @@ import { ObjectId } from "mongodb";
 import { collections } from "../services/databaseService.js";
 
 
-const products: Product[] = [];
+const products: Product[] = []; //Base de datos antigua
 
 export class Product {
     public _id?: ObjectId;
@@ -41,9 +41,9 @@ export class Product {
     static async fetchAll(){
         return await collections.products?.find().toArray();
     };
-    static async findById(productId: number){
-        return products;
-        //return await collections.products?.findOne({_id: new ObjectId(productId)});
+    static async findById(productId: string){
+        console.log('FindById',productId);
+        return await collections.products?.findOne({_id: new ObjectId(productId)});
     }
     //static deleteById(productId: number){}
 }
