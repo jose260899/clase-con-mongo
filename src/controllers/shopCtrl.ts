@@ -1,7 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 
 import { Product } from "../models/Product.js";
-import { Cart } from "../models/Cart.js";
 
 
 export const getIndex = (req: Request,res: Response,next: NextFunction) => {  
@@ -49,12 +48,12 @@ export const getProductById = async (req: Request,res: Response,next: NextFuncti
 //     })
 // };
 
-// export const postCart = (req: Request,res: Response,next: NextFunction)=>{
-//     const productId = +req.body.productId;
-//     console.log('postCart: Añadimos al carro el producto: ',productId);
-//     Cart.addProduct(productId,1);
-//     res.redirect('/cart');
-// }
+export const postCart = (req: Request,res: Response,next: NextFunction)=>{
+    const productId = +req.body.productId;
+    console.log('postCart: Añadimos al carro el producto: ',productId);
+    //Cart.addProduct(productId,1);
+    res.redirect('/cart');
+}
 // export const deleteCartItem =  (req: Request,res: Response,next: NextFunction)=>{
 //     const productId = +req.body.productId;
 //     Cart.deleteProduct(productId);
